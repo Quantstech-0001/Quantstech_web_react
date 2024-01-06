@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useContextController } from "../../context";
 import { ChevronUpIcon, Cog6ToothIcon } from "@heroicons/react/24/solid";
 import { PositionTable, OrderTable } from '../tables';
@@ -78,6 +78,17 @@ export function Terminal({ data, open }) {
 
   const [terminalRoute, setTerminalRoute] = useState("position")
   const [terminalChildRoute, setTerminalChildRoute] = useState("all")
+  const [terminalChildAvailable, setTerminalChildAvailable] = useState(false)
+
+  useEffect(() => {
+    routes_terminal.forEach((elem) => {
+      if (elem.child.length > 0) {
+        setTerminalChildAvailable(true);
+      } else {
+        setTerminalChildAvailable(false);
+      }
+    })
+  }, [terminalRoute]);
 
   return (
     <div className={`w-[calc(100%-30px)] xl:w-[calc(100%-350px)] flex flex-col px-4 py-2 h-88 fixed rounded-lg shadow-upper-md transition-all duration-500 ease-out bg-white ${open ? "bottom-0" : "-bottom-80"}`}>
@@ -112,9 +123,9 @@ export function Terminal({ data, open }) {
         ))
       }
 
-      <div className="h-72 w-full flex flex-col overflow-auto">
+      <div className={`${terminalChildAvailable ? "h-62" : "h-72"} w-full flex flex-col overflow-auto`}>
         {
-          routes_terminal.map((item)=>(
+          routes_terminal.map((item) => (
             item.name === terminalRoute && item.table
           ))
         }

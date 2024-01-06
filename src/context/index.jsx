@@ -46,7 +46,8 @@ export function MaterialTailwindControllerProvider({ children }) {
   //   [controller, dispatch]
   // );
 
-  const [terminalOpen,setTerminalOpen] = useState(false);
+  // const [terminalOpen,setTerminalOpen] = useState(false);
+  const [terminalOpen,setTerminalOpen] = useState(true);
   const [sidenavOpen,setSidenavOpen] = useState(true);
 
   const value = {

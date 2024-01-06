@@ -76,7 +76,7 @@ export const routes = [
         element: <SignUp />,
       },
     ],
-  },
+  }
 ];
 
 export default routes;

@@ -50,11 +50,21 @@ export function MaterialTailwindControllerProvider({ children }) {
   const [terminalOpen,setTerminalOpen] = useState(false);
   const [sidenavOpen,setSidenavOpen] = useState(true);
 
+  const [buySwitch,setBuySwitch] = useState(true);
+  const [buyModalOpen,setBuyModalOpen] = useState(false);
+  const [buyModalData,setBuyModalData] = useState({});
+
   const value = {
     terminalOpen,
     setTerminalOpen,
     sidenavOpen,
-    setSidenavOpen
+    setSidenavOpen,
+    buySwitch,
+    setBuySwitch,
+    buyModalOpen,
+    setBuyModalOpen,
+    buyModalData,
+    setBuyModalData
   }
 
   return (

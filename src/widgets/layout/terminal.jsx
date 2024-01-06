@@ -112,9 +112,9 @@ export function Terminal({ data, open }) {
       </ul>
 
       {
-        routes_terminal.map((item) => (
+        routes_terminal.map((item,idx) => (
           (terminalRoute === item.name && item.child.length) > 0 &&
-          <ul className="min-h-10 flex justify-start items-center border-b border-solid border-gray-300">
+          <ul className="min-h-10 flex justify-start items-center border-b border-solid border-gray-300" key={idx}>
             {item.child.map((childItem) => (
               <li className={`mr-4 cursor-pointer font-normal text-sm px-2 py-1 rounded-md ${childItem.name === terminalChildRoute ? "bg-blue-100 text-blue-700" : "bg-transparent hover:bg-gray-100 text-gray-900"}`} key={childItem.name} onClick={() => { setTerminalChildRoute(childItem.name) }}> {childItem.title} </li>
             ))

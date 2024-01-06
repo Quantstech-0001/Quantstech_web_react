@@ -10,8 +10,8 @@ export function PositionTable({ data }) {
             <thead className="border-b border-solid border-gray-300 text-sm text-gray-500 sticky top-0 z-20 bg-white">
                 <tr className="z-20">
                     {
-                        headers.map((item,idx) => (
-                            <th className={`py-2 border-solid border-gray-300 font-normal ${idx !== headers.length-1 ? "border-r" : ""}`} key={item}>{item}</th>
+                        headers.map((item, idx) => (
+                            <th className={`py-2 border-solid border-gray-300 font-normal ${idx !== headers.length - 1 ? "border-r" : ""}`} key={item}>{item}</th>
                         ))
                     }
                 </tr>

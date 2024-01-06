@@ -1,8 +1,11 @@
 import { useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import { useContextController } from "../../context";
 
-export function DropdownWithSuggestion({ label, placeholder, options, value, setValue, savedStocks, setSavedStocks, setBuySellData, setBuySellModalOpen,setInstrumentBuy }) {
+export function DropdownWithSuggestion({ label, placeholder, options, value, setValue, savedStocks, setSavedStocks}) {
+
+    const { setBuyModalOpen, setBuyModalData, setBuySwitch } = useContextController();
 
     const [dropDownOpen, setDropDownOpen] = useState(false);
 
@@ -28,7 +31,7 @@ export function DropdownWithSuggestion({ label, placeholder, options, value, set
                             setValue("");
                             setDropDownOpen(false);
                         }}>
-                            <svg className="w-4 h-4 mx-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg className="w-4 h-4 mx-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="18" y1="6" x2="6" y2="18"></line>
                                 <line x1="6" y1="6" x2="18" y2="18"></line>
                             </svg>
@@ -49,9 +52,9 @@ export function DropdownWithSuggestion({ label, placeholder, options, value, set
                                             <div className="flex justify-around items-center">
                                                 <button type="button" className="w-5 h-5 rounded-full bg-transparent hover:bg-green-700 mr-1.5 flex justify-center items-center text-xs font-semibold border border-green-700 text-green-700 hover:text-white cursor-pointer transition-all duration-300"
                                                     onClick={() => {
-                                                        setInstrumentBuy(true)
-                                                        setBuySellModalOpen(true);
-                                                        setBuySellData({
+                                                        setBuySwitch(true)
+                                                        setBuyModalOpen(true);
+                                                        setBuyModalData({
                                                             name: item.name,
                                                             img: "/img/team-2.jpeg",
                                                             email: "green-energy@adani.com",
@@ -62,9 +65,9 @@ export function DropdownWithSuggestion({ label, placeholder, options, value, set
                                                 </button>
                                                 <button type="button" className="w-5 h-5 rounded-full bg-transparent hover:bg-red-700 mr-1 flex justify-center items-center text-xs font-semibold border border-red-700 text-red-700 hover:text-white cursor-pointer transition-all duration-300"
                                                     onClick={() => {
-                                                        setInstrumentBuy(false)
-                                                        setBuySellModalOpen(true);
-                                                        setBuySellData({
+                                                        setBuySwitch(false)
+                                                        setBuyModalOpen(true);
+                                                        setBuyModalData({
                                                             name: item.name,
                                                             img: "/img/team-2.jpeg",
                                                             email: "green-energy@adani.com",
@@ -99,9 +102,9 @@ DropdownWithSuggestion.defaultProps = {
 
 DropdownWithSuggestion.propTypes = {
     label: PropTypes.string,
-    name: PropTypes.object.isRequired,
+    // name: PropTypes.object.isRequired,
     placeholder: PropTypes.string,
-    options: PropTypes.object.isRequired,
+    // options: PropTypes.object.isRequired,
     value: PropTypes.string.isRequired,
     // setValue:PropTypes.func
 };

@@ -85,14 +85,16 @@ export function Sidenav({ data, getStocksList }) {
           </div>
         }
 
-        {
-          sidenav_routes.map((item) => (
-            item.name === sideNavOptions && item.component
-          ))
-        }
+        <div className="overflow-y-auto w-full h-[calc(100%-60px)]">
+          {
+            sidenav_routes.map((item) => (
+              item.name === sideNavOptions && item.component
+            ))
+          }
+        </div>
 
 
-        <div className="w-full h-12 flex border-t border-solid border-gray-300">
+        <div className="w-full min-h-10 flex border-t border-solid border-gray-300">
           {
             sidenav_routes.map((item, idx) => (
               <button type="button" className={`h-full w-1/2 flex items-center justify-center border-solid border-gray-300 ${sideNavOptions === item.name ? "text-blue-700" : "text-gray-600"} ${sidenav_routes.length - 1 !== idx ? "border-r" : ""}`} key={item.name} onClick={() => setSideNavOptions(item.name)}>{item.title}</button>

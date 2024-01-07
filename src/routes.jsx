@@ -8,7 +8,7 @@ import {
   ChartBarIcon,
   PresentationChartLineIcon
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Notifications, Discrete, Stocks } from "./pages/dashboard";
+import { Home, Profile, Tables, Notifications, Discrete, Stocks, Strategies, Screeners } from "./pages/dashboard";
 import { SignIn, SignUp } from "./pages/auth";
 
 const icon = {
@@ -23,41 +23,61 @@ export const routes = [
         icon: <HomeIcon {...icon} />,
         name: "dashboard",
         path: "/home",
+        subPages: false,
         element: <Home />,
       },
       {
         icon: <UserCircleIcon {...icon} />,
         name: "profile",
         path: "/profile",
+        subPages: false,
         element: <Profile />,
       },
       {
         icon: <TableCellsIcon {...icon} />,
         name: "tables",
         path: "/tables",
+        subPages: false,
         element: <Tables />,
       },
       {
         icon: <InformationCircleIcon {...icon} />,
         name: "notifications",
         path: "/notifications",
+        subPages: false,
         element: <Notifications />,
       },
-      // custom start
       {
         icon: <ChartBarIcon {...icon} />,
-        name: "discrete",
-        path: "/discrete",
-        element: <Discrete />,
+        name: "strategies",
+        path: "/strategies",
+        subPages: true,
+        element: <Strategies />,
       },
       {
         icon: <PresentationChartLineIcon {...icon} />,
         name: "stocks",
         path: "/stocks",
+        subPages: false,
         element: <Stocks />,
-      },
-      // custom end
+      }
     ],
+    subPages:[
+      {
+        icon: <ChartBarIcon {...icon} />,
+        name: "discrete",
+        path: "/strategies/discrete",
+        parent: "strategies",
+        element: <Discrete />,
+      },
+      {
+        icon: <ChartBarIcon {...icon} />,
+        name: "screeners",
+        path: "/strategies/screeners",
+        parent: "strategies",
+        element: <Screeners />,
+      }
+    ]
   },
   {
     title: "auth pages",

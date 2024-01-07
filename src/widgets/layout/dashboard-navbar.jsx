@@ -2,37 +2,35 @@ import { useLocation, Link } from "react-router-dom";
 import {
   Navbar,
   Typography,
-  Button,
-  IconButton,
   Breadcrumbs,
-  Input,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-  Avatar,
 } from "@material-tailwind/react";
-import {
-  UserCircleIcon,
-  Cog6ToothIcon,
-  BellIcon,
-  ClockIcon,
-  CreditCardIcon,
-  Bars3Icon,
-} from "@heroicons/react/24/solid";
 import routes from "../../routes";
 
 export function DashboardNavbar() {
 
   const { pathname } = useLocation();
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
-  
+
+  const getSubPages = (pageName) => {
+    let currentLayout = {}
+    routes.forEach((item) => {
+      item.layout === layout && (currentLayout = item)
+    })
+
+    if (Object.keys(currentLayout).length === 0) {
+      return [];
+    }
+    console.log(currentLayout);
+    let subPagesList = currentLayout.subPages.filter((item) => item.parent === pageName)
+    return subPagesList;
+  }
+
   return (
     <Navbar
       color={"white"}
       className={"rounded-xl transition-all sticky top-4 z-40 py-3 shadow-md shadow-blue-gray-500/5"}
       fullWidth
-      // blurred={fixedNavbar}
+    // blurred={fixedNavbar}
     >
       <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
         <div className="capitalize">
@@ -66,10 +64,45 @@ export function DashboardNavbar() {
             {routes.map(
               ({ layout, pages }) =>
                 layout === "dashboard" &&
-                pages.map(({ path, name }) => (
-                  <Link to={`/dashboard${path}`} className={`px-3 py-2 mr-2 hover:text-white hover:bg-gradient-to-br hover:from-gray-800 hover:to-gray-900 rounded-md text-gray-900 capitalize transition-all duration-300 ease-in-out ${"/"+page === path ? "text-white bg-gradient-to-br from-gray-800 to-gray-900":""}`}>
-                    {name}
-                  </Link>
+                pages.map(({ path, name, subPages }) => (
+                  <div className="relative" key={name}
+                    onMouseEnter={(e) => {
+                      let target = e.currentTarget.lastChild;
+                      if (target.tagName.toLowerCase() === "div") {
+                        target.classList.remove("hidden");
+                        target.classList.add("block");
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      let target = e.currentTarget.lastChild;
+                      if (target.tagName.toLowerCase() === "div") {
+                        target.classList.remove("block");
+                        target.classList.add("hidden");
+                      }
+                    }}
+                  >
+                    <Link to={`/${layout}${path}`} className={`px-3 py-2 mr-2 hover:text-white hover:bg-gradient-to-br hover:from-gray-800 hover:to-gray-900 rounded-md text-gray-900 capitalize transition-all duration-300 ease-in-out ${"/" + page === path ? "text-white bg-gradient-to-br from-gray-800 to-gray-900" : ""}`}
+                    >
+                      {name}
+                    </Link>
+
+                    
+                    {subPages &&
+                      <div className={`bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg absolute top-[130%] right-1.5 hidden`}>
+                        <ul className="flex flex-col gap-1 p-1">
+                          {
+                            getSubPages(name).map(({ name: subName, path: subPath }) => (
+                              <li className="bg-white hover:bg-gray-100 text-black capitalize rounded-sm h-8 min-w-28" key={subName}>
+                                <Link to={`/${layout}${subPath}`} className="w-full h-full flex items-center px-2 cursor-pointer">
+                                  {subName}
+                                </Link>
+                              </li>
+                            ))
+                          }
+                        </ul>
+                      </div>
+                    }
+                  </div>
                 ))
             )}
 

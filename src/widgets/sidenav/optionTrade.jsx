@@ -24,15 +24,15 @@ export function OptionTrade({ }) {
     const [autoFind, setAutoFind] = useState({ type: "", value: 0 });
 
     return (
-        <div className="w-full h-full flex flex-col gap-1">
-            <div className="w-full h-10 flex justify-center items-center text-white bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg">Option Trader</div>
+        <div className="w-full h-full flex flex-col gap-1 overflow-x-hidden">
+            <div className="w-full min-h-10 flex justify-center items-center text-white bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg">Option Trader</div>
 
             <div className="w-full h-full">
 
                 <DropdownSimple label="Index/Equity" options={indexData} value={equityName} setValue={setEquityName} />
                 <DropdownSimple label="Expiry" options={dateData} value={expiry} setValue={setExpiry} />
 
-                <div className="w-full h-full flex flex-col gap-1 mt-2 overflow-x-hidden">
+                <div className="w-full h-full flex flex-col gap-1 mt-2">
                     {/* INVESTMENT */}
                     <div className="w-full flex flex-col">
 
